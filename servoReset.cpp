@@ -6,7 +6,7 @@
 #include <pigpio.h>
 
 #define SERVO_PIN 15
-#define CENTER_PULSE 2000
+#define CENTER_PULSE 1500
 
 int main(int argc, char *argv[]){
 	
