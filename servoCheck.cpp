@@ -1,23 +1,25 @@
+//Servo Check
 //Jesse Offei-Nkansah
 #include <iostream>
 #include <string>
 #include <pigpio.h>
 #include <thread>
+#include <chrono>
 #include <vector>
 
-#define BASE_SERVO 15
-#define LOWER_ARM_SERVO 16
-#define UPPER_ARM_SERVO 17
-#define ROLL_SERVO 19
-#define PITCH_SERVO 20
-#define YAW_SERVO 21
+#define BASE_SERVO 14
+#define LOWER_ARM_SERVO 15
+#define UPPER_ARM_SERVO 18
+#define ROLL_SERVO 17
+#define PITCH_SERVO 27
+#define YAW_SERVO 22
 
 #define SEC 1000000
 
-void servoForward(int servo);
-void servoReverse(int servo);
+void servoForward(void* servo);
+void servoReverse(void* servo);
 
-bool swap = false;
+gpioTimerFuncEx_t function = servoForward;
 
 int main(int argc, char *argv[]){
 	
@@ -27,16 +29,10 @@ int main(int argc, char *argv[]){
 	std::cin.get();
 
 	if(gpioInitialise() >= 0){
-		for(int i=0; i < servoArr.size(); ++i){
-			std::thread t(servoForward, servoArr[i]);
-			std::cin.get();
-			t.join();
-			swap = true;
-			std::thread u(servoReverse, servoArr[i]);
-			cin.get();
-			swap = true;
-			u.join();
-		}
+		gpioSetMode(UPPER_ARM_SERVO, PI_OUTPUT);
+		
+		gpioSetTimerFuncEx(0, 1000, function, (void*)UPPER_ARM_SERVO);
+		while(1){std::this_thread::sleep_for(std::chrono::milliseconds(1000));}
 	}
 
 	gpioTerminate();
@@ -44,27 +40,28 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
-void servoForward(int servo){
+void servoForward(void* servo){
 	
-	pulse = gpioGetServoPulseWidth(servo);
+	int pulse = 1500;
 
-	while(!swap){
-		pulse += 5;
-		std::cout << "\rnumber: " << pulse;
-		gpioServo(servo, pulse);
-		gpioDelay(5 * SEC\100);
-	}
+	do{
+		pulse += 1;
+		//std::cout << "\rnumber: " << pulse;
+		gpioServo(static_cast<int>(reinterpret_cast<std::uintptr_t>(servo)), pulse);
+	}while(gpioGetServoPulsewidth(static_cast<int>(reinterpret_cast<std::uintptr_t>(servo))) < 2495);
+	
+
 }
 
 
-void servoReverse(int servo){
+void servoReverse(void* servo){
 
-	pulse = gpioGetServoPulseWidth(servo);
 
-	while(!swap){
-		pulse -= 5;
+	int pulse = 1500;
+
+	do{
+		pulse -= 1;
 		std::cout << "\rnumber: " << pulse;
-		gpioServo(servo, pulse);
-		gpioDelay(5 * SEC\100);
-	}
+		gpioServo(static_cast<int>(reinterpret_cast<std::uintptr_t>(servo)), pulse);
+	}while(gpioGetServoPulsewidth(static_cast<int>(reinterpret_cast<std::uintptr_t>(servo))) > 505);
 }
