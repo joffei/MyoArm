@@ -38,6 +38,8 @@ int main(int argc, char **argv){
 	servo upperArm(18, 1500, 15, 1010, 1800);
 	servo wrist(17, 1010, 10, 1010, 1800);
 	
+	gpioTimerFuncEx_t func = move;
+	
 	if (gpioInitialise() < 0) return 1;
 	
 	gpioSetMode(base.gpio, PI_OUTPUT);
@@ -45,12 +47,17 @@ int main(int argc, char **argv){
 	gpioSetMode(upperArm.gpio, PI_OUTPUT);
 	gpioSetMode(wrist.gpio, PI_OUTPUT);
 	
-	gpioSetTimerFuncEx(1, 100, move, &upperArm);
-	gpioSetTimerFuncEx(0, 100, move, &lowerArm);
+	gpioServo(lowerArm.gpio, 1500);
+	gpioServo(upperArm.gpio, 1500);
+	gpioDelay(5000000);
 	
-	while(1){
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-	}
+	gpioSetTimerFuncEx(1, 100, func, &upperArm);
+	gpioSetTimerFuncEx(0, 100, func, &lowerArm);
+	
+	std::cin.get();
+	func = nullptr;
+	//std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	
 	return 0;
 }
 
