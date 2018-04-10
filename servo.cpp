@@ -129,6 +129,30 @@ void Servo::pulse(){
 	gpioServo(gpio, pw);
 }
 
+void Servo::increment(){
+	pw += pwInc;
+}
+
+void Servo::decrement(){
+	pw -= pwInc;
+}
+
+void Servo::servoLeft(){
+	if(pwInc < 0){
+		pw += (pwInc * -1);
+	}else{
+		pw += pwInc;
+	}
+}
+
+void Servo::servoRight(){
+	if(pwInc > 0){
+		pw += (pwInc * -1);
+	}else{
+		pw += pwInc;
+	}
+}
+
 Servo Servo::operator =(Servo& rhs){
 	gpio = rhs.gpio;
 	minPulse = rhs.minPulse;

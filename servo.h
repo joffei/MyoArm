@@ -38,6 +38,10 @@ class Servo{
 		int getIncrement();
 		
 		void pulse()
+		void increment();
+		void decrement();
+		void servoLeft();
+		void servoRight();
 		
 		Servo operator=(const Servo& rhs);
 		bool operator==(const Servo& rhs);
