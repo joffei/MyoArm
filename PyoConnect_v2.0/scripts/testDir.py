@@ -2,6 +2,8 @@
 # kept unlocked until lock explicitly called
 def onUnlock():
     myo.unlock("hold")
+    myo.box_factor = 0.35
+    myo.rotSetCenter()
     
 def onPoseEdge(pose, edge):
     #print pose + " " + edge
@@ -33,3 +35,30 @@ def onPoseEdge(pose, edge):
         print "unknown on"
     elif(pose == 'unknown') and (edge == 'off'):
         print "unknown off"
+        
+def onBoxChange(boxNumber, state):
+    print(myo.getHBox(), ", ", myo.getVBox())
+#    if (myo.getHBox() == 1): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
+#        lowerArm.reverse()
+#        lowerArm.connect()
+#        armPi.event_trigger(lowerArm.get_interest())
+#    elif (myo.getHBox() == 0): #((boxNumber == 7) or (boxNumber == 0) or (boxNumber == 3)) and (state == 'on'):
+#        lowerArm.set_pwInc(abs(lowerArm.get_pwInc()))
+#        lowerArm.disconnect()
+#        armPi.event_trigger(lowerArm.get_interest())
+#    elif (myo.getHBox() == -1): #((boxNumber == 6) or (boxNumber == 5) or (boxNumber == 4)) and (state == 'on')
+#        lowerArm.connect()
+#        armPi.event_trigger(lowerArm.get_interest())
+        
+    
+#    if (myo.getVBox() == 1): #((boxNumber == 2) or (boxNumber == 3) or (boxNumber == 4)) and (state == 'on'):
+#        upperArm.connect()
+#        armPi.event_trigger(upperArm.get_interest())
+#    elif (myo.getVBox() == 0): #((boxNumber == 1) or (boxNumber == 0) or (boxNumber == 5)) and (state == 'on')
+#        upperArm.set_pwInc(abs(upperArm.get_pwInc()))
+#        upperArm.disconnect()
+#        armPi.event_trigger(upperArm.get_interest())
+#    elif (myo.getVBox() == -1): #((boxNumber == 8) or (boxNumber == 7) or (boxNumber == 6)) and (state == 'on'):
+#        upperArm.reverse()
+#        upperArm.connect()
+#        armPi.event_trigger(upperArm.get_interest())
