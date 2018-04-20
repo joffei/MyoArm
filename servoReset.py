@@ -6,11 +6,10 @@
 import pigpio
 import time
 
-SERVO_PIN = 18
+SERVO_PIN = 14
 CENTER_PULSE = 1500
 
 pulse = 1010
-
 pi = pigpio.pi()
 print("initializing pi")
 

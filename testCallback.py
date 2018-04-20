@@ -11,18 +11,21 @@ PULSE = [1500, 1500]
 MIN = [1080, 1080]
 MAX = [1800, 1800]
 INC = [25, 25]
+CONN = [1, 0]
 
 pi = pigpio.pi()
 
 def moveLower(event, tick):
     global pi
-    PULSE[0] += INC[0]
     
-    if(PULSE[0] >= MAX[0]) or (PULSE[0] <= MIN[0]):
-        INC[0] = -INC[0]
-        PULSE[0] += INC[0] * 2
+    if(CONN[event]):
+        PULSE[event] += INC[event]
         
-    pi.set_servo_pulsewidth(SERVO[0], PULSE[0])
+        if(PULSE[event] >= MAX[event]) or (PULSE[event] <= MIN[event]):
+            INC[event] = -INC[event]
+            PULSE[event] += INC[event] * 2
+        
+        pi.set_servo_pulsewidth(SERVO[event], PULSE[event])
     
 def moveUpper(event, tick):
     global pi
@@ -34,8 +37,8 @@ def moveUpper(event, tick):
         
     pi.set_servo_pulsewidth(SERVO[1], PULSE[1])
     
-cb1 = pi.event_callback(SERVO[0], moveLower)
-cb2 = pi.event_callback(SERVO[1], moveUpper)
+cb1 = pi.event_callback(0, moveLower)
+cb2 = pi.event_callback(1, moveLower)
     
     
 if (not pi.connected):
@@ -50,8 +53,8 @@ pi.set_servo_pulsewidth(SERVO[1], 1500)
 time.sleep(5)
 try:
     while True:
-        pi.event_trigger(SERVO[0])
-        pi.event_trigger(SERVO[1])
+        pi.event_trigger(0)
+        pi.event_trigger(1)
         time.sleep(0.1)
     raise KeyboardInterrupt
 finally:
