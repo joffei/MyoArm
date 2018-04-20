@@ -85,7 +85,7 @@ class Servo:
             self.__pulse = pulse
             return True
         else:
-            print("Pulse Limit Hit")
+            #print("Pulse Limit Hit")
             return False
 
     def get_pwInc(self):

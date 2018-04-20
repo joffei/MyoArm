@@ -11,8 +11,10 @@ class Servo:
     __maxPulse = None
     __minPulse = None
     __pwInc = None
+    __event = None
+    __connection = False
 
-    def __init__(self, gpio=2, pulse=1500, maxPulse=1850, minPulse=1080, pwInc=15):
+    def __init__(self, gpio=2, pulse=1500, maxPulse=1850, minPulse=1080, pwInc=15, event = 31, connected=False):
         if (not self.set_gpio(gpio)):
             print("Setting to gpio 2")
             self.__gpio = 2
@@ -32,6 +34,15 @@ class Servo:
         if(not self.set_pwInc(pwInc)):
             print("Setting to 15")
             self.__pwInc = 15
+            
+        if(not self.set_event(event)):
+            print("Setting to 31")
+            self.__event = 31
+            
+        if (connected == True):
+            self.connect()
+        else:
+            self.disconnect()
 
     def get_gpio(self):
         return self.__gpio
@@ -74,7 +85,7 @@ class Servo:
             self.__pulse = pulse
             return True
         else:
-            print("Pulse cannot be set to " + pulse + ".")
+            print("Pulse Limit Hit")
             return False
 
     def get_pwInc(self):
@@ -86,6 +97,34 @@ class Servo:
             return True
         else:
             print("Pulse Increment cannot be set to " + pwInc + ".")
+            return False
+        
+    def get_event(self):
+        return self.__event
+    
+    def set_event(self, event):
+        if(event >= 0) and (event <= 31):
+            self.__event = event
+            return True
+        else:
+            print("Event must be between 0 and 31.")
+            return False
+        
+    def connected(self):
+        return self.__connection
+    
+    def connect(self):
+        self.__connection = True
+        if (self.connected()):
+            return True
+        else:
+            return False
+        
+    def disconnect(self):
+        self.__connection = False
+        if (not self.connected()):
+            return True
+        else:
             return False
 
     def increment(self):
@@ -103,6 +142,10 @@ class Servo:
             return True
         else:
             return False
+        
+    def reverse(self):
+        """'reverse' function reverses the value of pwInc to allow movement in opposite direction"""
+        self.__pwInc = self.__pwInc * -1
 
     def servoLeft(self):
         """'servoLeft' function increases the value of pulse by pwInc, effectively turning the servo to the left.  This does not pulse the servo.  A call to 'pi.set_servo_pulsewidth()' must be made."""
