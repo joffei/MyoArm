@@ -6,7 +6,7 @@
 import pigpio
 import time
 
-SERVO_PIN = 14
+SERVO_PIN = 15
 CENTER_PULSE = 1500
 
 pulse = 1010
