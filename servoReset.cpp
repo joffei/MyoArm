@@ -5,7 +5,7 @@
 #include <string>
 #include <pigpio.h>
 
-#define SERVO_PIN 15
+#define SERVO_PIN 27
 #define CENTER_PULSE 1500
 
 int main(int argc, char *argv[]){
