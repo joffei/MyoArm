@@ -5,7 +5,7 @@ cnt = 0
 
 def onUnlock():
     myo.unlock("hold")
-    myo.box_factor = 0.45
+    myo.box_factor = 0.5
     myo.rotSetCenter()
     
 def onPoseEdge(pose, edge):
@@ -39,8 +39,8 @@ def onPoseEdge(pose, edge):
     elif(pose == 'unknown') and (edge == 'off'):
         print "unknown off"
         
-#def onBoxChange(boxNumber, state):
-#    print(myo.getHBox(), myo.getVBox(),, state)
+def onBoxChange(boxNumber, state):
+    print(myo.getHBox(), myo.getVBox(), state)
 #    if (myo.getHBox() == 1): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
 #        lowerArm.reverse()
 #        lowerArm.connect()
