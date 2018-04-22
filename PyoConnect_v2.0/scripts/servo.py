@@ -6,14 +6,6 @@
 class Servo:
     """This class defines a servo object referenced by its GPIO location"""
 
-    __gpio = None
-    __pulse = None
-    __maxPulse = None
-    __minPulse = None
-    __pwInc = None
-    __interest = None
-    __connection = False
-
     def __init__(self, gpio=2, pulse=1500, maxPulse=1850, minPulse=1080, pwInc=15, interest=31, connected=False):
         if (not self.set_gpio(gpio)):
             print("Setting to gpio 2")
@@ -129,16 +121,16 @@ class Servo:
 
     def increment(self):
         """'increment' function adds the value of pwInc to pulse"""
-        if(self.__pulse + self.__pwInc <= self.__maxPulse):
-            self.__pulse += self.__pwInc
+        if(self.__pulse + abs(self.__pwInc) <= self.__maxPulse):
+            self.__pulse += abs(self.__pwInc)
             return True
         else:
             return False
 
     def decrement(self):
         """'decrement' function subtracts the value of pwInc from pulse"""
-        if (self.__pulse - self.__pwInc >= self.__maxPulse):
-            self.__pulse -= self.__pwInc
+        if (self.__pulse - abs(self.__pwInc) >= self.__maxPulse):
+            self.__pulse -= abs(self.__pwInc)
             return True
         else:
             return False
