@@ -37,7 +37,7 @@ def onPoseEdge(pose, edge):
         print "unknown off"
         
 def onBoxChange(boxNumber, state):
-    print(myo.getHBox(), ", ", myo.getVBox())
+    print(myo.getHBox(), myo.getVBox(),, state)
 #    if (myo.getHBox() == 1): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
 #        lowerArm.reverse()
 #        lowerArm.connect()
