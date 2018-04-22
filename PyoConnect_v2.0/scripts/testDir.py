@@ -1,8 +1,11 @@
 # Double tap to unlock
 # kept unlocked until lock explicitly called
+
+cnt = 0
+
 def onUnlock():
     myo.unlock("hold")
-    myo.box_factor = 0.35
+    myo.box_factor = 0.45
     myo.rotSetCenter()
     
 def onPoseEdge(pose, edge):
@@ -36,8 +39,8 @@ def onPoseEdge(pose, edge):
     elif(pose == 'unknown') and (edge == 'off'):
         print "unknown off"
         
-def onBoxChange(boxNumber, state):
-    print(myo.getHBox(), myo.getVBox(),, state)
+#def onBoxChange(boxNumber, state):
+#    print(myo.getHBox(), myo.getVBox(),, state)
 #    if (myo.getHBox() == 1): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
 #        lowerArm.reverse()
 #        lowerArm.connect()
@@ -62,3 +65,13 @@ def onBoxChange(boxNumber, state):
 #        upperArm.reverse()
 #        upperArm.connect()
 #        armPi.event_trigger(upperArm.get_interest())
+
+def onPeriodic():
+    global cnt
+    
+    if (cnt >= 100):
+        print(myo.rotRoll(), myo.rotPitch(), myo.rotYaw())
+        cnt = 0
+    else:
+        cnt += 1
+        
