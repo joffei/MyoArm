@@ -8,12 +8,12 @@ SPATH		= scripts/
 EXT1		= .pyc
 EXT2		= .py
 
-all: daemon $(TARGET)
+all: daemon manager
 
 daemon:
 	$(ROOT) $(DAEMON)
 
-$(TARGET):
+manager:
 	$(CC) $(TARGET)$(EXT1)
 
 $(SUBTARGET1):
