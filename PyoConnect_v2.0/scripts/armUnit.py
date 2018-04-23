@@ -52,7 +52,6 @@ def onBoxChange(boxNumber, state):
     
     if (lowerArm.get_pulse() >= lowerArm.get_maxPulse() - abs(lowerArm.get_pwInc())):
         lowerArm.disconnect()
-        armPi.event_trigger(lowerArm.get_interest())
         lowerArm.set_pulse(lowerArm.get_maxPulse() - 2 * abs(lowerArm.get_pwInc()))
         lowerArm.set_pwInc(abs(lowerArm.get_pwInc()))
         
@@ -60,7 +59,6 @@ def onBoxChange(boxNumber, state):
         #time.sleep(0.1)
     elif (lowerArm.get_pulse() <= lowerArm.get_minPulse() + abs(lowerArm.get_pwInc())):
         lowerArm.disconnect()
-        armPi.event_trigger(lowerArm.get_interest())
         lowerArm.set_pulse(lowerArm.get_minPulse() + 2 * abs(lowerArm.get_pwInc()))
         lowerArm.set_pwInc(abs(lowerArm.get_pwInc()))
         #add correcting pulses here
@@ -69,19 +67,17 @@ def onBoxChange(boxNumber, state):
     elif (myo.getHBox() == 1) and (state == "on"): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
         lowerArm.reverse()
         lowerArm.connect()
-        armPi.event_trigger(lowerArm.get_interest())
     elif (myo.getHBox() == 0) and (state == "on"): #((boxNumber == 7) or (boxNumber == 0) or (boxNumber == 3)) and (state == 'on'):
         lowerArm.disconnect()
         lowerArm.set_pwInc(abs(lowerArm.get_pwInc()))
-        armPi.event_trigger(lowerArm.get_interest())
     elif (myo.getHBox() == -1) and (state == "on"): #((boxNumber == 6) or (boxNumber == 5) or (boxNumber == 4)) and (state == 'on')
         lowerArm.connect()
-        armPi.event_trigger(lowerArm.get_interest())
+        
+    armPi.event_trigger(lowerArm.get_interest())
         
     
     if (upperArm.get_pulse() >= upperArm.get_maxPulse() - upperArm.get_pwInc()):
         upperArm.disconnect()
-        armPi.event_trigger(upperArm.get_interest())
         upperArm.set_pulse(upperArm.get_maxPulse() - 2 * abs(upperArm.get_pwInc()))
         upperArm.set_pwInc(abs(upperArm.get_pwInc()))
         #add correcting pulses here
@@ -89,7 +85,6 @@ def onBoxChange(boxNumber, state):
         #time.sleep(0.1)
     elif (upperArm.get_pulse() <= upperArm.get_minPulse() + upperArm.get_pwInc()):
         upperArm.disconnect()
-        armPi.event_trigger(upperArm.get_interest())
         upperArm.set_pulse(upperArm.get_minPulse() + 2 * abs(upperArm.get_pwInc()))
         upperArm.set_pwInc(abs(upperArm.get_pwInc()))
         #add correcting pulses here
@@ -97,15 +92,14 @@ def onBoxChange(boxNumber, state):
         #time.sleep(0.1)
     elif (myo.getVBox() == 1) and (state == "on"): #((boxNumber == 2) or (boxNumber == 3) or (boxNumber == 4)) and (state == 'on'):
         upperArm.connect()
-        armPi.event_trigger(upperArm.get_interest())
     elif (myo.getVBox() == 0) and (state == "on"): #((boxNumber == 1) or (boxNumber == 0) or (boxNumber == 5)) and (state == 'on')
         upperArm.set_pwInc(abs(upperArm.get_pwInc()))
         upperArm.disconnect()
-        armPi.event_trigger(upperArm.get_interest())
     elif (myo.getVBox() == -1) and (state == "on"): #((boxNumber == 8) or (boxNumber == 7) or (boxNumber == 6)) and (state == 'on'):
         upperArm.reverse()
         upperArm.connect()
-        armPi.event_trigger(upperArm.get_interest())
+        
+    armPi.event_trigger(upperArm.get_interest())
     
     #time.sleep(0.03)
 
