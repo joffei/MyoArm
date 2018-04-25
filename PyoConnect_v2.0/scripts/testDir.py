@@ -68,14 +68,14 @@ def onPoseEdge(pose, edge):
 #        upperArm.connect()
 #        armPi.event_trigger(upperArm.get_interest())
 
-#def onPeriodic():
-#    global cnt
-#    
-#    if (cnt >= 100):
-#        print(myo.rotRoll(), myo.rotPitch(), myo.rotYaw())
-#        cnt = 0
-#    else:
-#        cnt += 1
+def onPeriodic():
+    global cnt
+    
+    if (cnt >= 100):
+        print(myo.rotRoll(), myo.rotPitch(), myo.rotYaw())
+        cnt = 0
+    else:
+        cnt += 1
         
 #def onEMG(emg, moving):
 #    print(emg, moving)

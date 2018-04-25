@@ -103,13 +103,13 @@ def onBoxChange(boxNumber, state):
         #add correcting pulses here
         armPi.set_servo_pulsewidth(lowerArm.get_gpio(), lowerArm.get_pulse())
         
-    elif (myo.getHBox() == 1) and (state == "on"): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
+    elif (boxNumber == 3) and (state == "on"): #((boxNumber == 8) or (boxNumber == 1) or (boxNumber == 2)) and (state == 'on'):
         lowerArm.reverse()
         lowerArm.connect()
-    elif (myo.getHBox() == 0) and (state == "on"): #((boxNumber == 7) or (boxNumber == 0) or (boxNumber == 3)) and (state == 'on'):
+    elif (boxNumber == 0) and (state == "on"): #((boxNumber == 7) or (boxNumber == 0) or (boxNumber == 3)) and (state == 'on'):
         lowerArm.disconnect()
         lowerArm.set_pwInc(abs(lowerArm.get_pwInc()))
-    elif (myo.getHBox() == -1) and (state == "on"): #((boxNumber == 6) or (boxNumber == 5) or (boxNumber == 4)) and (state == 'on')
+    elif (boxNumber == 7) and (state == "on"): #((boxNumber == 6) or (boxNumber == 5) or (boxNumber == 4)) and (state == 'on')
         lowerArm.connect()
         
     armPi.event_trigger(lowerArm.get_interest())
@@ -129,12 +129,12 @@ def onBoxChange(boxNumber, state):
         #add correcting pulses here
         armPi.set_servo_pulsewidth(upperArm.get_gpio(), upperArm.get_pulse())
         
-    elif (myo.getVBox() == 1) and (state == "on"): #((boxNumber == 2) or (boxNumber == 3) or (boxNumber == 4)) and (state == 'on'):
+    elif (boxNumber == 1) and (state == "on"): #((boxNumber == 2) or (boxNumber == 3) or (boxNumber == 4)) and (state == 'on'):
         upperArm.connect()
-    elif (myo.getVBox() == 0) and (state == "on"): #((boxNumber == 1) or (boxNumber == 0) or (boxNumber == 5)) and (state == 'on')
+    elif (boxNumber == 0) and (state == "on"): #((boxNumber == 1) or (boxNumber == 0) or (boxNumber == 5)) and (state == 'on')
         upperArm.set_pwInc(abs(upperArm.get_pwInc()))
         upperArm.disconnect()
-    elif (myo.getVBox() == -1) and (state == "on"): #((boxNumber == 8) or (boxNumber == 7) or (boxNumber == 6)) and (state == 'on'):
+    elif (boxNumber == 5) and (state == "on"): #((boxNumber == 8) or (boxNumber == 7) or (boxNumber == 6)) and (state == 'on'):
         upperArm.reverse()
         upperArm.connect()
         
