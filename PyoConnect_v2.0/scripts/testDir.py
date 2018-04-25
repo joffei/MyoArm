@@ -10,8 +10,8 @@ def onUnlock():
     myo.box_factor = 0.5
     myo.rotSetCenter()
     
-#def onPoseEdge(pose, edge):
-#    #print pose + " " + edge
+def onPoseEdge(pose, edge):
+    print pose + " " + edge
 #    if(pose == 'fist') and (edge == 'on'):
 #        print "Fist on"
 #    elif(pose == 'fist') and (edge == 'off'):
@@ -77,6 +77,6 @@ def onUnlock():
 #    else:
 #        cnt += 1
         
-def onEMG(emg, moving):
-    print(emg, moving)
-    time.sleep(0.25)
+#def onEMG(emg, moving):
+#    print(emg, moving)
+#    time.sleep(0.25)
