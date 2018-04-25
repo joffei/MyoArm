@@ -6,7 +6,7 @@
 import pigpio
 import time
 
-SERVO_PIN = 17
+SERVO_PIN = 27
 CENTER_PULSE = 1500
 
 pulse = 1010
@@ -24,7 +24,7 @@ while(pulse != 0):
         pulse = 1010
     elif(pulse == 0):
         break
-    elif(pulse < 1010):
+    elif(pulse < 1000):
         print("too low")
         pulse = 1010
     else:
