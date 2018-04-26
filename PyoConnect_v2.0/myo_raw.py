@@ -50,9 +50,6 @@ class Pose(enum.Enum):
     WAVE_OUT = 3
     FINGERS_SPREAD = 4
     THUMB_TO_PINKY = 5
-    THUMB = 6
-    INDEX = 7
-    PINKY = 8
     UNKNOWN = 255	 
     
 class Packet(object):
